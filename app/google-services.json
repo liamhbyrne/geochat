@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61746203435",
+    "project_id": "geochat-16225",
+    "storage_bucket": "geochat-16225.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61746203435:android:ed0b2da7065fe96ddc536e",
+        "android_client_info": {
+          "package_name": "com.example.geochat_hack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61746203435-4i48gf86htpr49tk2c2ldl9cjvt0ok3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBehq9k0x-husSnq1z6OSl3BIU-0blEp_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61746203435-4i48gf86htpr49tk2c2ldl9cjvt0ok3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
