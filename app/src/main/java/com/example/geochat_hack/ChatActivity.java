@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -36,11 +37,17 @@ public class ChatActivity extends AppCompatActivity {
 
     private FirebaseDatabase mDatabase;
     private FirebaseRecyclerAdapter<FriendlyMessage, MessageViewHolder> mFirebaseAdapter;
+    private String locality;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        Intent extras = getIntent();
+        this.locality = extras.getStringExtra("locality");
+        getSupportActionBar().setTitle(locality);
 
         // Disable the send button when there's no text in the input field
         // See MyButtonObserver.java for details
@@ -54,7 +61,8 @@ public class ChatActivity extends AppCompatActivity {
                         ((EditText) findViewById(R.id.messageEditText)).getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         null,
-                        null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)));
+                        null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
+                        locality);
                 mDatabase.getReference().child("messages").push().setValue(friendlyMessage);
                 ((EditText) findViewById(R.id.messageEditText)).setText("");
             }
@@ -71,9 +79,9 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Initialize Realtime Database
+        // Initialize Realtime Database and Locality query
         mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference messagesRef = mDatabase.getReference().child("messages");
+        Query messagesRef = mDatabase.getReference("messages").orderByChild("locality").equalTo(locality);
 
 
         FirebaseRecyclerOptions<FriendlyMessage> options =
@@ -131,7 +139,8 @@ public class ChatActivity extends AppCompatActivity {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FriendlyMessage tempMessage = new FriendlyMessage(
                         null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                        null, null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)));
+                        null, null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
+                        this.locality);
 
                 mDatabase.getReference().child("messages").push()
                         .setValue(tempMessage, new DatabaseReference.CompletionListener() {
@@ -173,7 +182,7 @@ public class ChatActivity extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         FriendlyMessage friendlyMessage = new FriendlyMessage(
                                                 null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                                null, uri.toString(), String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)));
+                                                null, uri.toString(), String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)), locality);
                                         mDatabase.getReference()
                                                 .child("messages")
                                                 .child(key)

@@ -24,17 +24,19 @@ public class FriendlyMessage {
     private String imageUrl;
     private String hours;
     private String minutes;
+    private String locality;
 
     public FriendlyMessage() {
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String hours, String minutes) {
+    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String hours, String minutes, String locality) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
         this.hours = hours;
         this.minutes = minutes;
+        this.locality = locality;
     }
 
     public void setText(String text) {
@@ -83,5 +85,13 @@ public class FriendlyMessage {
 
     public void setMinutes(String seconds) {
         this.minutes = seconds;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
     }
 }

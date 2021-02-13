@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         tv_locality = findViewById(R.id.currentLocation);
         sw_locationupdates = findViewById(R.id.sw_locationsupdates);
@@ -134,10 +135,13 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
+        final Intent toChat = new Intent(MainActivity.this, ChatActivity.class);
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+
+                toChat.putExtra("locality", getLocality());
+                startActivity(toChat);
             }
         });
     }  // end onCreate method
