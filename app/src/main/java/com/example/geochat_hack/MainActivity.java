@@ -3,6 +3,8 @@ package com.example.geochat_hack;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,13 +26,20 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
@@ -38,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
     TextView tv_locality;
     String locality;
+    double latitude, longitude;
+
+    GoogleMap map;
+
+
 
     Switch sw_locationupdates, sw_gps;
 
@@ -60,7 +74,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         tv_locality = findViewById(R.id.chatButton);
         sw_locationupdates = findViewById(R.id.sw_locationsupdates);
@@ -221,10 +240,15 @@ public class MainActivity extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(MainActivity.this);
 
         try {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            tv_locality.setText(addresses.get(0).getLocality());
+            //tv_locality.setText(addresses.get(0).getLocality());
             locality = addresses.get(0).getLocality();
             Log.i("MAL","Locality="+addresses.get(0).getLocality());
+            LatLng currentLocation = new LatLng(latitude, longitude);
+            map.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13f));
         } catch(Exception e){
             Log.i("MAL","Unable to get location");
         }
@@ -232,5 +256,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String getLocality(){
         return this.locality;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
     }
 }
