@@ -35,6 +35,35 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
+        if (friendlyMessage.getPhotoUrl() != null) {
+            String ppUrl = friendlyMessage.getPhotoUrl();
+            if (ppUrl.startsWith("gs://")) {
+                StorageReference storageReference = FirebaseStorage.getInstance()
+                        .getReferenceFromUrl(ppUrl);
+
+                storageReference.getDownloadUrl()
+                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String downloadUrl = uri.toString();
+                                Glide.with(messengerImageView.getContext())
+                                        .load(downloadUrl)
+                                        .into(messengerImageView);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Getting download url was not successful.", e);
+                            }
+                        });
+            } else {
+                Glide.with(messengerImageView.getContext())
+                        .load(friendlyMessage.getImageUrl())
+                        .into(messengerImageView);
+            }
+        }
+
         if(friendlyMessage.getName() != null) {
             String hours = null;
             String minutes = null;
