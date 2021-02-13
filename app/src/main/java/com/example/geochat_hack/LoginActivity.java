@@ -90,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("signin", "signInWithEmail:success");
-                            Intent toChat = new Intent(LoginActivity.this, ChatActivity.class);
-                            LoginActivity.this.startActivity(toChat);
+                            Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
+                            LoginActivity.this.startActivity(toMain);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("signin", "signInWithEmail:failure", task.getException());

@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Calendar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -38,7 +40,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
         if(friendlyMessage.getName() != null) {
-            messengerTextView.setText(friendlyMessage.getName());
+            messengerTextView.setText(String.format("%s at %d:%d", friendlyMessage.getName(), Calendar.MINUTE, Calendar.SECOND));
             messengerTextView.setVisibility(TextView.VISIBLE);
         }
         if (friendlyMessage.getText() != null) {
