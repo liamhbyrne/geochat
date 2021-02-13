@@ -92,29 +92,35 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+        refreshUI(); //set icon imageView
 
+    }
+
+    protected void refreshUI() {
         final CircleImageView pp = findViewById(R.id.pp);
+        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null) {
+            StorageReference storageReference = FirebaseStorage.getInstance()
+                    .getReferenceFromUrl(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
 
-        StorageReference storageReference = FirebaseStorage.getInstance()
-                .getReferenceFromUrl(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
-
-        storageReference.getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String downloadUrl = uri.toString();
-                        Glide.with(findViewById(R.id.pp).getContext())
-                                .load(downloadUrl)
-                                .into(pp);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Getting download url was not successful.", e);
-                    }
-                });
-
+            storageReference.getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String downloadUrl = uri.toString();
+                            Glide.with(findViewById(R.id.pp).getContext())
+                                    .load(downloadUrl)
+                                    .into(pp);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("TAG", "Getting download url was not successful.", e);
+                        }
+                    });
+        } else {
+            pp.setImageDrawable(getDrawable(R.drawable.ic_account_circle_black_36dp));
+        }
     }
 
     @Override
@@ -124,6 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK && data != null) {
+
                 final Uri uri = data.getData();
                 Log.d("im", "Uri: " + uri.toString());
 
@@ -150,15 +157,13 @@ public class SettingsActivity extends AppCompatActivity {
                                         .setPhotoUri(downloadUrl)
                                         .build();
 
-                                user.updateProfile(profileUpdates)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Log.d("TAG", "User profile updated.");
-                                                }
-                                            }
-                                        });
+                                user.updateProfile(profileUpdates);
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                refreshUI();
                             }
                         });
                     }
