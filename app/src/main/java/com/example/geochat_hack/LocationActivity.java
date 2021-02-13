@@ -34,7 +34,7 @@ public class LocationActivity extends AppCompatActivity {
     public static final int FAST_UPDATE_INTERVAL = 5;
     public static final int PERMISSIONS_FINE_LOCATION = 99; // Value is any arbitrary value
 
-    TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_address, tv_updates;
+    TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_address, tv_updates, tv_locality;
 
     Switch sw_locationupdates, sw_gps;
 
@@ -64,6 +64,7 @@ public class LocationActivity extends AppCompatActivity {
         tv_sensor = findViewById(R.id.tv_sensor);
         tv_address = findViewById(R.id.tv_address);
         tv_updates = findViewById(R.id.tv_updates);
+        tv_locality = findViewById(R.id.tv_locality);
         sw_locationupdates = findViewById(R.id.sw_locationsupdates);
         sw_gps = findViewById(R.id.sw_gps);
 
@@ -133,6 +134,8 @@ public class LocationActivity extends AppCompatActivity {
         locationInfo.put("tv_speed","Not tracking location");
         tv_address.setText("Not tracking location");
         locationInfo.put("tv_address","Not tracking location");
+        tv_locality.setText("Not tracking location");
+        locationInfo.put("tv_locality","Not tracking location");
         tv_accuracy.setText("Not tracking location");
         locationInfo.put("tv_accuracy","Not tracking location");
         tv_altitude.setText("Not tracking location");
@@ -154,6 +157,8 @@ public class LocationActivity extends AppCompatActivity {
         locationInfo.put("tv_speed","Not tracking location");
         tv_address.setText("Trying to track location");
         locationInfo.put("tv_address","Not tracking location");
+        tv_locality.setText("Trying to track location");
+        locationInfo.put("tv_locality","Not tracking location");
         tv_accuracy.setText("Trying to track location");
         locationInfo.put("tv_accuracy","Not tracking location");
         tv_altitude.setText("Trying to track location");
@@ -255,13 +260,25 @@ public class LocationActivity extends AppCompatActivity {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             tv_address.setText(addresses.get(0).getAddressLine(0));
             locationInfo.put("tv_address",addresses.get(0).getAddressLine(0));
+            tv_locality.setText(addresses.get(0).getLocality());
+            locationInfo.put("tv_locality",addresses.get(0).getLocality());
         }catch(Exception e){
             tv_address.setText("Unable to get street address");
             locationInfo.put("tv_address","Unable to get street address");
+            tv_locality.setText("Unable to get street address");
+            locationInfo.put("tv_locality","Unable to get street address");
         }
     }
 
     public Map<String, String> getLocationInfo(){
         return locationInfo;
+    }
+
+    public String getLocality(){
+        String locality = "N/A";
+        if(this.locationInfo.containsKey("tv_locality")){
+            locality = this.locationInfo.get("tv_locality");
+        }
+        return locality;
     }
 }
