@@ -9,39 +9,53 @@
 
     <Button
         android:id="@+id/locationButton"
-        android:layout_width="106dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="476dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="148dp"
+        android:background="@color/colorWhite"
         android:text="Location"
-        android:textColor="#0A6800"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chatButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/settingsButton"
         android:layout_width="106dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginTop="476dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="148dp"
+        android:background="@color/colorWhite"
         android:text="Settings"
-        android:textColor="#0A6800"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chatButton" />
 
     <Button
         android:id="@+id/chatButton"
-        android:layout_width="237dp"
-        android:layout_height="72dp"
-        android:layout_marginBottom="112dp"
-        android:layout_marginTop="71dp"
-        android:text="Go to Chat"
-        android:textColor="#0A6800"
+        android:layout_width="267dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="226dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="92dp"
+        android:background="@color/colorWhite"
+        android:text="Chat"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationButton" />
+        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -66,11 +80,12 @@
         android:layout_marginTop="304dp"
         android:gravity="center"
         android:text="Current Location: "
-        android:textColor="#0A6800"
+        android:textColor="@color/colorWhite"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
