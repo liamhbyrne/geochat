@@ -76,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
         ((RecyclerView) findViewById(R.id.messageRecyclerView)).setLayoutManager(mLinearLayoutManager);
         ((RecyclerView) findViewById(R.id.messageRecyclerView)).setAdapter(mFirebaseAdapter);
 
-        // Scroll down when a new message arrives
+        // Scroll down when a new message arrives :)
         // See MyScrollToBottomObserver.java for details
         mFirebaseAdapter.registerAdapterDataObserver(
                 new MyScrollToBottomObserver(((RecyclerView) findViewById(R.id.messageRecyclerView)), mFirebaseAdapter, mLinearLayoutManager));
