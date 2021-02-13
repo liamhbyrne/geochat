@@ -10,14 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,7 +36,13 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
         if(friendlyMessage.getName() != null) {
-            messengerTextView.setText(String.format("%s at %d:%d", friendlyMessage.getName(), Calendar.MINUTE, Calendar.SECOND));
+            String hours = null;
+            String minutes = null;
+            if (friendlyMessage.getHours() != null && friendlyMessage.getMinutes() != null) {
+                hours = friendlyMessage.getHours();
+                minutes = friendlyMessage.getMinutes();
+            }
+            messengerTextView.setText(String.format("%s at %s:%s", friendlyMessage.getName(), hours, minutes));
             messengerTextView.setVisibility(TextView.VISIBLE);
         }
         if (friendlyMessage.getText() != null) {
