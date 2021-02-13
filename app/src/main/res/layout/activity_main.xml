@@ -7,111 +7,109 @@
     android:background="@color/colorPrimary"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="279dp"
+        android:layout_height="57dp"
+        android:text="The social media that focuses on local"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/signin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="350dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/geochat_title" />
+
     <Button
         android:id="@+id/locationButton"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="148dp"
-        android:background="@color/colorWhite"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/movescreen"
         android:text="Location"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="106dp"
+        android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="148dp"
-        android:background="@color/colorWhite"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/movescreen"
         android:text="Settings"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButton" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locationButton" />
 
     <Button
         android:id="@+id/chatButton"
         android:layout_width="267dp"
         android:layout_height="88dp"
         android:layout_marginBottom="226dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="92dp"
-        android:background="@color/colorWhite"
+        android:background="@drawable/button_localchat"
         android:text="Chat"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="324dp"
-        android:layout_height="194dp"
-        android:layout_marginBottom="94dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/currentLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/geochat_title" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.299" />
 
     <TextView
         android:id="@+id/currentLocation"
-        android:layout_width="168dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="304dp"
+        android:layout_width="208dp"
+        android:layout_height="38dp"
         android:gravity="center"
-        android:text="Current Location: "
+        android:text="Join your local group chat"
         android:textColor="@color/colorWhite"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/chatButton" />
 
     <Switch
         android:id="@+id/sw_locationsupdates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:checked="true"
         android:text="Location Updates"
-        app:layout_constraintBottom_toTopOf="@+id/sw_gps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
         android:id="@+id/sw_gps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="107dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:text="GPS/SavePower"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_locationsupdates" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
