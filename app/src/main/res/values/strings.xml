@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">geochat-hack</string>
+    <string name="app_name">geochat</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
