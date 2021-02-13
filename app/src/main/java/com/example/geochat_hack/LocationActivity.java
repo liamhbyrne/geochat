@@ -55,6 +55,7 @@ public class LocationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        getSupportActionBar().hide();
 
         tv_lat = findViewById(R.id.tv_lat);
         tv_lon = findViewById(R.id.tv_lon);
@@ -256,13 +257,13 @@ public class LocationActivity extends AppCompatActivity {
 
         Geocoder geocoder = new Geocoder(LocationActivity.this);
 
-        try{
+        try {
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             tv_address.setText(addresses.get(0).getAddressLine(0));
             locationInfo.put("tv_address",addresses.get(0).getAddressLine(0));
             tv_locality.setText(addresses.get(0).getLocality());
             locationInfo.put("tv_locality",addresses.get(0).getLocality());
-        }catch(Exception e){
+        } catch(Exception e){
             tv_address.setText("Unable to get street address");
             locationInfo.put("tv_address","Unable to get street address");
             tv_locality.setText("Unable to get street address");
@@ -274,7 +275,7 @@ public class LocationActivity extends AppCompatActivity {
         return locationInfo;
     }
 
-    public String getLocality(){
+    public String getLocality() {
         String locality = "N/A";
         if(this.locationInfo.containsKey("tv_locality")){
             locality = this.locationInfo.get("tv_locality");

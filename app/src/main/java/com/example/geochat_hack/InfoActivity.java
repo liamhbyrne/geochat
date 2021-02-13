@@ -18,6 +18,7 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        getSupportActionBar().hide();
 
         final EditText displayname = (EditText) findViewById(R.id.displayname);
         final EditText age = (EditText) findViewById(R.id.age);
