@@ -26,7 +26,7 @@
             android:id="@+id/addMessageImageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            ads:srcCompat="@drawable/ic_add_black_24dp"/>
+            ads:srcCompat="@drawable/ic_baseline_image_24"/>
 
         <EditText
             android:id="@+id/messageEditText"
