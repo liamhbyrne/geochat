@@ -45,7 +45,7 @@ public class InfoActivity extends AppCompatActivity {
         user.updateProfile(profileUpdates);
 
         Toast.makeText(InfoActivity.this, "Name is set!", Toast.LENGTH_SHORT).show();
-        Intent toInfo = new Intent(InfoActivity.this, ChatActivity.class);
-        InfoActivity.this.startActivity(toInfo);
+        Intent toMain = new Intent(InfoActivity.this, MainActivity.class);
+        InfoActivity.this.startActivity(toMain);
     }
 }
