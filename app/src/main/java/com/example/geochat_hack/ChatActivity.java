@@ -60,7 +60,7 @@ public class ChatActivity extends AppCompatActivity {
                 FriendlyMessage friendlyMessage = new FriendlyMessage(
                         ((EditText) findViewById(R.id.messageEditText)).getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                        null,
+                        String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()),
                         null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
                         locality);
                 mDatabase.getReference().child("messages").push().setValue(friendlyMessage);
@@ -139,7 +139,7 @@ public class ChatActivity extends AppCompatActivity {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FriendlyMessage tempMessage = new FriendlyMessage(
                         null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                        null, null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
+                        String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
                         this.locality);
 
                 mDatabase.getReference().child("messages").push()
@@ -182,7 +182,7 @@ public class ChatActivity extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         FriendlyMessage friendlyMessage = new FriendlyMessage(
                                                 null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                                null, uri.toString(), String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)), locality);
+                                                String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), uri.toString(), String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)), locality);
                                         mDatabase.getReference()
                                                 .child("messages")
                                                 .child(key)
