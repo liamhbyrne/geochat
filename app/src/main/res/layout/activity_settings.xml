@@ -4,27 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/common_google_signin_btn_text_light_default"
     tools:context=".SettingsActivity">
-
-    <TextView
-        android:id="@+id/settingsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:layout_marginTop="16dp"
-        android:text="Settings"
-        android:textColor="#175700"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/notificationsSwitch"
         android:layout_width="361dp"
         android:layout_height="49dp"
+        android:layout_marginTop="16dp"
         android:text="Send Notifications"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
@@ -33,7 +22,9 @@
         android:id="@+id/messageNoiseSwitch"
         android:layout_width="361dp"
         android:layout_height="49dp"
+        android:layout_marginTop="16dp"
         android:text="Message Noises"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notificationsSwitch" />
@@ -59,5 +50,39 @@
         app:layout_constraintTop_toBottomOf="@+id/messageNoiseSwitch"
         app:layout_constraintVertical_bias="0.857"
         app:srcCompat="@drawable/ic_account_circle_black_36dp" />
+
+
+    <TextView
+        android:id="@+id/settingsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="Settings"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
+    <Button
+        android:id="@+id/back_to_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/movescreen"
+        android:text="back"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
