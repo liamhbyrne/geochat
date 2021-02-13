@@ -38,6 +38,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         if (friendlyMessage.getPhotoUrl() != null) {
             String ppUrl = friendlyMessage.getPhotoUrl();
             if (ppUrl.startsWith("gs://")) {
+                Log.i("uri", ppUrl);
                 StorageReference storageReference = FirebaseStorage.getInstance()
                         .getReferenceFromUrl(ppUrl);
 
@@ -59,7 +60,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
                         });
             } else {
                 Glide.with(messengerImageView.getContext())
-                        .load(friendlyMessage.getImageUrl())
+                        .load(friendlyMessage.getPhotoUrl())
                         .into(messengerImageView);
             }
         }
