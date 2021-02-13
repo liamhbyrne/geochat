@@ -1,5 +1,6 @@
 package com.example.geochat_hack;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
@@ -7,13 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,6 +41,12 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
+        if (friendlyMessage.getName() != null && FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null) {
+            if (friendlyMessage.getName().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())) {
+                //way of telling if its the same user (better than same display name)
+                messengerTextView.setTextColor(Color.parseColor("#7289DA"));
+            }
+        }
         if (friendlyMessage.getPhotoUrl() != null) {
             String ppUrl = friendlyMessage.getPhotoUrl();
             if (ppUrl.startsWith("gs://")) {
