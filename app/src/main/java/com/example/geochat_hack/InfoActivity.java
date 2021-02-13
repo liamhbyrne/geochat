@@ -26,10 +26,10 @@ public class InfoActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Integer.parseInt(age.getText().toString()) >= 18) {
+                if (Integer.parseInt(age.getText().toString()) >= 18 && displayname.getText().toString().length() > 3) {
                     setInfo(displayname.getText().toString());
                 } else {
-                    Toast.makeText(InfoActivity.this, "18+ app", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InfoActivity.this, "min name length: 4 // 18+ app", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -45,5 +45,7 @@ public class InfoActivity extends AppCompatActivity {
         user.updateProfile(profileUpdates);
 
         Toast.makeText(InfoActivity.this, "Name is set!", Toast.LENGTH_SHORT).show();
+        Intent toInfo = new Intent(InfoActivity.this, ChatActivity.class);
+        InfoActivity.this.startActivity(toInfo);
     }
 }
