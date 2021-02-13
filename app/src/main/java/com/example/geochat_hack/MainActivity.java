@@ -207,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         else {
+            Log.i("MAL","Permissions not accepted");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
             }
