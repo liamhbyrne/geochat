@@ -1,5 +1,6 @@
 package com.example.geochat_hack;
 
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
@@ -19,8 +20,10 @@ public class MyButtonObserver implements TextWatcher {
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if (charSequence.toString().trim().length() > 0) {
             mButton.setEnabled(true);
+            mButton.setBackgroundColor(Color.parseColor("#05F481"));
         } else {
             mButton.setEnabled(false);
+            mButton.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 
