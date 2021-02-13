@@ -2,4 +2,8 @@
     <string name="app_name">geochat</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign Up</string>
+    <string name="send_notifications">Send Notifications</string>
+    <string name="message_noise">Message Noise</string>
+    <string name="remember_email">Remember Email</string>
+    <string name="saved_email">Saved Email</string>
 </resources>

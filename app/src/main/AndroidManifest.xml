@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".InfoActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
@@ -27,10 +28,6 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
-        <!-- Recommended for Android 9 (API level 28) and lower. -->
-        <!-- Required for Android 10 (API level 29) and higher. -->
-
     </application>
 
 </manifest>
