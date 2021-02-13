@@ -159,7 +159,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                 user.updateProfile(profileUpdates);
                                 try {
-                                    Thread.sleep(2000);
+                                    Thread.sleep(1000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }

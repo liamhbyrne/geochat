@@ -1,6 +1,7 @@
 package com.example.geochat_hack;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // Disable the send button when there's no text in the input field
         // See MyButtonObserver.java for details
+        ((Button) findViewById(R.id.sendButton)).setBackgroundColor(Color.TRANSPARENT);
         ((EditText) findViewById(R.id.messageEditText)).addTextChangedListener(new MyButtonObserver((Button) findViewById(R.id.sendButton)));
 
         // When the send button is clicked, send a text message
