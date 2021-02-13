@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
         .findFragmentById(R.id.map);
@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(toChat);
             }
         });
+
     }  // end onCreate method
 
     private void stopLocationUpdates() {
@@ -249,6 +250,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng currentLocation = new LatLng(latitude, longitude);
             map.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13f));
+            TextView locationText = findViewById(R.id.currentLocation);
+            locationText.setText("Current Chat: " + getLocality());
         } catch(Exception e){
             Log.i("MAL","Unable to get location");
         }
