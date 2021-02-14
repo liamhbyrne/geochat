@@ -1,5 +1,7 @@
 # geochat
 
+A location based groupchat app developed for Highfield Hack 2021 by Liam Byrne, Lucas Warwick and Sam Watson
+
 ## Inspiration
 Recent events have emphasised a diminishing feeling of community that existed even before lockdown. We were surprised at the ease to make a connected the other side of the world but the distinct inability to build genuine connection within a local community.
 ## What it does
