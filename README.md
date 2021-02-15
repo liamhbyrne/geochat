@@ -3,7 +3,7 @@
 A location based groupchat app developed for *Highfield Hack 2021* by **Liam Byrne**, **Lucas Warwick** and **Sam Watson**
 
 [Hackathon Submission Devpost](https://devpost.com/software/geochat-r25ixj)  
-
+Demo Youtube Video:
 [![GeoChat Demo Video](https://img.youtube.com/vi/jB7rDQ1j-Ow/0.jpg)](https://youtu.be/jB7rDQ1j-Ow)
 
 ## Inspiration
