@@ -81,6 +81,15 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        back_to_main = findViewById(R.id.back_to_main);
+        // Assign button methods
+        back_to_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+            }
+        });
+
         Button addPP = (Button) findViewById(R.id.addpp);
         addPP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,15 +180,6 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         }
-
-        back_to_main = findViewById(R.id.back_to_main);
-        // Assign button methods
-        back_to_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, MainActivity.class));
-            }
-        });
 
     }
 
