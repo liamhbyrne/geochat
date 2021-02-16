@@ -15,8 +15,11 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     GoogleMap map;
 
-
+    List<Address> addresses;
 
     Switch sw_locationupdates, sw_gps;
 
@@ -144,8 +147,52 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Assign button methods
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, LocationActivity.class));
+            public void onClick(View v) {
+                PopupMenu menu = new PopupMenu(getApplicationContext(), v);
+                menu.getMenu().add(Menu.NONE, 1, 1, getAddresses().get(0).getPremises());
+                menu.getMenu().add(Menu.NONE, 2, 2, getAddresses().get(0).getLocality());
+                menu.getMenu().add(Menu.NONE, 3, 3, getAddresses().get(0).getPostalCode().split(" ")[0]);
+                menu.getMenu().add(Menu.NONE, 4, 4, getAddresses().get(0).getSubAdminArea());
+                menu.getMenu().add(Menu.NONE, 5, 5, getAddresses().get(0).getAdminArea());
+
+
+                menu.show();
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        int i = item.getItemId();
+                        switch (i) {
+                            case 1:
+                                locality = getAddresses().get(0).getPremises();
+                                updateGPS();
+                                return true;
+
+                            case 2:
+                                locality = getAddresses().get(0).getLocality();
+                                updateGPS();
+                                return true;
+
+                            case 3:
+                                locality = getAddresses().get(0).getPostalCode().split(" ")[0];
+                                updateGPS();
+                                return true;
+
+                            case 4:
+                                locality = getAddresses().get(0).getSubAdminArea();
+                                updateGPS();
+                                return true;
+
+                            case 5:
+                                locality = getAddresses().get(0).getAdminArea();
+                                updateGPS();
+                                return true;
+                        }
+                        return false;
+                    }
+
+                });
             }
         });
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -243,9 +290,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         try {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            this.addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (locality == null) {
+                locality = addresses.get(0).getLocality();
+            }
             //tv_locality.setText(addresses.get(0).getLocality());
-            locality = addresses.get(0).getLocality();
             Log.i("MAL","Locality="+addresses.get(0).getLocality());
             LatLng currentLocation = new LatLng(latitude, longitude);
             map.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
@@ -259,6 +308,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public String getLocality(){
         return this.locality;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
     @Override
