@@ -48,30 +48,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final int FAST_UPDATE_INTERVAL = 5;
     public static final int PERMISSIONS_FINE_LOCATION = 99; // Value is any arbitrary value
 
-    TextView tv_locality;
-    String locality;
-    double latitude, longitude;
+    private TextView tv_locality;
+    private String locality;
+    private double latitude, longitude;
 
-    GoogleMap map;
+    private GoogleMap map;
 
-    List<Address> addresses;
+    private List<Address> addresses;
 
-    Switch sw_locationupdates, sw_gps;
+    private Switch sw_locationupdates, sw_gps;
 
     // variable to remember if we are tracking location or not
-    boolean updateOn = false;
+    private boolean updateOn = false;
 
     // Location request is a config file for all settings related to FuseLocationProviderClient
-    LocationRequest locationRequest;
+    private LocationRequest locationRequest;
 
-    LocationCallback locationCallBack;
+    private LocationCallback locationCallBack;
 
     // Google's API for location services. The majority of app functions using this class
-    FusedLocationProviderClient fusedLocationProviderClient;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     private Map<String, String> locationInfo = new HashMap<>();
 
-    Button locationButton, settingsButton, chatButton;
+    private Button locationButton, settingsButton, chatButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

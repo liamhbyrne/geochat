@@ -39,23 +39,23 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
 
-        Button signinButton = (Button) findViewById(R.id.signin);
+        Button signinButton = findViewById(R.id.signin);
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText username = (EditText) findViewById(R.id.username);
-                EditText password = (EditText) findViewById(R.id.password);
+                EditText username = findViewById(R.id.username);
+                EditText password = findViewById(R.id.password);
 
                 signin(username.getText().toString(), password.getText().toString());
             }
         });
 
-        Button signupButton = (Button) findViewById(R.id.signup);
+        Button signupButton =  findViewById(R.id.signup);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText username = (EditText) findViewById(R.id.username);
-                EditText password = (EditText) findViewById(R.id.password);
+                EditText username = findViewById(R.id.username);
+                EditText password = findViewById(R.id.password);
 
                 createAccount(username.getText().toString(), password.getText().toString());
             }
