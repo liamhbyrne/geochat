@@ -1,3 +1,4 @@
 /build
 values/map_api.xml
 src/main/res/values/map_api.xml
+/google-services.json
