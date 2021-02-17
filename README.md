@@ -24,5 +24,3 @@ How to use (and the importance of) Git.
 How to use Android studio and Firebase.
 Architecture for NoSQL serverless apps.
 What reverse geocoding is.
-## What's next for GeoChat
-**Global domination baby**. no, we will focus on improving safeguarding by tighter identity verification.
