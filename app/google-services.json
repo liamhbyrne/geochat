@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "61746203435",
+    "firebase_url": "https://geochat-16225-default-rtdb.firebaseio.com",
     "project_id": "geochat-16225",
     "storage_bucket": "geochat-16225.appspot.com"
   },
@@ -20,7 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBehq9k0x-husSnq1z6OSl3BIU-0blEp_A"
+          "current_key": "AIzaSyCOiy27VSuHsXBaNlb4x-S2Nh0LgCKi7YA"
         }
       ],
       "services": {

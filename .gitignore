@@ -12,5 +12,3 @@
 /captures
 .externalNativeBuild
 .cxx
-/map_api.xml
-src/main/res/values/map_api.xml
