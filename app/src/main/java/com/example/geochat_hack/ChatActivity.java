@@ -31,7 +31,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -63,7 +66,7 @@ public class ChatActivity extends AppCompatActivity {
                         ((EditText) findViewById(R.id.messageEditText)).getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()),
-                        null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
+                        null, (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date())),
                         locality);
                 mDatabase.getReference().child("messages").push().setValue(friendlyMessage);
                 ((EditText) findViewById(R.id.messageEditText)).setText("");
@@ -141,7 +144,8 @@ public class ChatActivity extends AppCompatActivity {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FriendlyMessage tempMessage = new FriendlyMessage(
                         null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                        String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), null, String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),
+                        String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), null,
+                        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date()),
                         this.locality);
 
                 mDatabase.getReference().child("messages").push()
@@ -184,7 +188,8 @@ public class ChatActivity extends AppCompatActivity {
                                     public void onSuccess(Uri uri) {
                                         FriendlyMessage friendlyMessage = new FriendlyMessage(
                                                 null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                                                String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), uri.toString(), String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)), String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)), locality);
+                                                String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), uri.toString(),
+                                                new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date()), locality);
                                         mDatabase.getReference()
                                                 .child("messages")
                                                 .child(key)

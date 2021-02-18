@@ -151,7 +151,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 .getReference(user.getUid())
                                 .child(uri.getLastPathSegment());
 
-                storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                storageReference.putFile(uri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -160,8 +161,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                             @Override
                             public void onSuccess(Uri uri) {
+                                //where its held on server
                                 Uri downloadUrl = uri;
-                                //Do what you want with the url
+
+                                //add location for profile pic for the user
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setPhotoUri(downloadUrl)
                                         .build();

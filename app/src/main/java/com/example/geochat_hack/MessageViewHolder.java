@@ -2,14 +2,13 @@ package com.example.geochat_hack;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,7 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -78,14 +80,30 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         }
 
         if(friendlyMessage.getName() != null) {
-            String hours = null;
-            String minutes = null;
-            if (friendlyMessage.getHours() != null && friendlyMessage.getMinutes() != null) {
-                hours = friendlyMessage.getHours();
-                minutes = friendlyMessage.getMinutes();
+            if (friendlyMessage.getDate() != null) {
+                String date = friendlyMessage.getDate();
+                SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH);
+                try {
+                    Date ISO_Date = ISO_8601_FORMAT.parse(date);
+                    SimpleDateFormat newFormat;
+                    if (ISO_Date.getDate() == (new Date().getDate())) {
+                        newFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+                        messengerTextView.setText(String.format("%s at %s", friendlyMessage.getName(), newFormat.format(ISO_Date)));
+                        messengerTextView.setVisibility(TextView.VISIBLE);
+                    } else {
+                        newFormat = new SimpleDateFormat("[dd/MM/yy]", Locale.ENGLISH);
+                        messengerTextView.setText(String.format("%s %s", friendlyMessage.getName(), newFormat.format(ISO_Date)));
+                        messengerTextView.setVisibility(TextView.VISIBLE);
+                    }
+
+
+                } catch (ParseException e) {
+                    Log.e("PARSE", "Incorrect date format");
+                }
             }
-            messengerTextView.setText(String.format("%s at %s:%s", friendlyMessage.getName(), hours, minutes));
-            messengerTextView.setVisibility(TextView.VISIBLE);
+
+
+
         }
         if (friendlyMessage.getText() != null) {
             messageTextView.setText(friendlyMessage.getText());
