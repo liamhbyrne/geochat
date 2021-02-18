@@ -33,6 +33,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     ImageView messageImageView;
     TextView messengerTextView;
     CircleImageView messengerImageView;
+    TextView dateTextView;
 
     public MessageViewHolder(View v) {
         super(v);
@@ -40,6 +41,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         messageImageView = (ImageView) itemView.findViewById(R.id.messageImageView);
         messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
         messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
+        dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
     }
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
@@ -88,11 +90,13 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
                     SimpleDateFormat newFormat;
                     if (ISO_Date.getDate() == (new Date().getDate())) {
                         newFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
-                        messengerTextView.setText(String.format("%s at %s", friendlyMessage.getName(), newFormat.format(ISO_Date)));
+                        dateTextView.setText(newFormat.format(ISO_Date));
+                        messengerTextView.setText(friendlyMessage.getName());
                         messengerTextView.setVisibility(TextView.VISIBLE);
                     } else {
-                        newFormat = new SimpleDateFormat("[dd/MM/yy]", Locale.ENGLISH);
-                        messengerTextView.setText(String.format("%s %s", friendlyMessage.getName(), newFormat.format(ISO_Date)));
+                        newFormat = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
+                        dateTextView.setText(newFormat.format(ISO_Date));
+                        messengerTextView.setText(friendlyMessage.getName());
                         messengerTextView.setVisibility(TextView.VISIBLE);
                     }
 

@@ -151,8 +151,7 @@ public class ChatActivity extends AppCompatActivity {
                 mDatabase.getReference().child("messages").push()
                         .setValue(tempMessage, new DatabaseReference.CompletionListener() {
                             @Override
-                            public void onComplete(DatabaseError databaseError,
-                                                   DatabaseReference databaseReference) {
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                 if (databaseError != null) {
                                     Log.w("TAG", "Unable to write message to database.",
                                             databaseError.toException());
