@@ -149,12 +149,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 PopupMenu menu = new PopupMenu(getApplicationContext(), v);
-                menu.getMenu().add(Menu.NONE, 1, 1, getAddresses().get(0).getPremises());
-                menu.getMenu().add(Menu.NONE, 2, 2, getAddresses().get(0).getLocality());
-                menu.getMenu().add(Menu.NONE, 3, 3, getAddresses().get(0).getPostalCode().split(" ")[0]);
-                menu.getMenu().add(Menu.NONE, 4, 4, getAddresses().get(0).getSubAdminArea());
-                menu.getMenu().add(Menu.NONE, 5, 5, getAddresses().get(0).getAdminArea());
-
+                if (getAddresses().size() == 0) {
+                    Toast.makeText(MainActivity.this, "Location not detected", Toast.LENGTH_LONG).show();
+                    updateGPS();
+                } else {
+                    if (getAddresses().get(0).getPremises() != null) {
+                        menu.getMenu().add(getAddresses().get(0).getPremises());
+                    }
+                    if (getAddresses().get(0).getLocality() != null) {
+                        menu.getMenu().add(getAddresses().get(0).getLocality());
+                    }
+                    if (getAddresses().get(0).getPostalCode() != null) {
+                        menu.getMenu().add(getAddresses().get(0).getPostalCode().split(" ")[0]);
+                    }
+                    if (getAddresses().get(0).getSubAdminArea() != null) {
+                        menu.getMenu().add(getAddresses().get(0).getSubAdminArea());
+                    }
+                    if (getAddresses().get(0).getAdminArea() != null) {
+                        menu.getMenu().add(getAddresses().get(0).getAdminArea());
+                    }
+                }
 
                 menu.show();
 
