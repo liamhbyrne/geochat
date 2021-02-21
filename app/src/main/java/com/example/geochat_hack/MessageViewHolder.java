@@ -2,11 +2,11 @@ package com.example.geochat_hack;
 
 import android.graphics.Color;
 import android.net.Uri;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +34,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     TextView messengerTextView;
     CircleImageView messengerImageView;
     TextView dateTextView;
+    String UID;
 
     public MessageViewHolder(View v) {
         super(v);
@@ -42,9 +43,24 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
         messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
         dateTextView = (TextView) itemView.findViewById(R.id.dateTextView);
+
+        v.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("!!PRESSED!!");
+                return false;
+            }
+        });
+    }
+
+    public String getUID() {
+        return UID;
     }
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
+        if (friendlyMessage.getUID() != null) {
+            this.UID = friendlyMessage.getUID();
+        }
         if (friendlyMessage.getName() != null && FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null) {
             if (friendlyMessage.getName().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())) {
                 //way of telling if its the same user (better than same display name)

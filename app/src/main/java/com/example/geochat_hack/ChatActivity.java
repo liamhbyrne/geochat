@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +25,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -58,12 +62,12 @@ public class ChatActivity extends AppCompatActivity {
         // See MyButtonObserver.java for details
         ((Button) findViewById(R.id.sendButton)).setBackgroundColor(Color.TRANSPARENT);
         ((EditText) findViewById(R.id.messageEditText)).addTextChangedListener(new MyButtonObserver((Button) findViewById(R.id.sendButton)));
-
         // When the send button is clicked, send a text message
         findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FriendlyMessage friendlyMessage = new FriendlyMessage(
+                Log.d("current account", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                FriendlyMessage friendlyMessage = new FriendlyMessage(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         ((EditText) findViewById(R.id.messageEditText)).getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()),
@@ -87,8 +91,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // Initialize Realtime Database and Locality query
         mDatabase = FirebaseDatabase.getInstance();
-        Query messagesRef = mDatabase.getReference("messages").orderByChild("locality").equalTo(locality);
-        
+        final Query messagesRef = mDatabase.getReference("messages").orderByChild("locality").equalTo(locality);
 
 
         FirebaseRecyclerOptions<FriendlyMessage> options =
@@ -100,7 +103,33 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public MessageViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-                return new MessageViewHolder(inflater.inflate(R.layout.item_message, viewGroup, false));
+                final MessageViewHolder mvh = new MessageViewHolder(inflater.inflate(R.layout.item_message, viewGroup, false));
+                mvh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        final String key = mFirebaseAdapter.getRef(((RecyclerView) findViewById(R.id.messageRecyclerView)).getChildLayoutPosition(v)).getKey();
+
+                        Query dbUID = mDatabase.getReference("messages").child(key).child("uid");
+                        dbUID.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.getValue() != null) {
+                                    String savedUID = (String) snapshot.getValue();
+                                    if (savedUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                        mDatabase.getReference("messages").child(key).removeValue();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("deletion attempt", "Failed to get UID for message deletion");
+                            }
+                        });
+                        return false;
+                    }
+                });
+                return mvh;
             }
 
             @Override
@@ -133,6 +162,10 @@ public class ChatActivity extends AppCompatActivity {
                 new MyScrollToBottomObserver(((RecyclerView) findViewById(R.id.messageRecyclerView)), mFirebaseAdapter, mLinearLayoutManager));
     }
 
+    public void notifyDelete() {
+
+    }
+
     @Override
     public void onPause() {
         mFirebaseAdapter.stopListening();
@@ -156,7 +189,7 @@ public class ChatActivity extends AppCompatActivity {
                 Log.d("im", "Uri: " + uri.toString());
 
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                FriendlyMessage tempMessage = new FriendlyMessage(
+                FriendlyMessage tempMessage = new FriendlyMessage(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                         null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), null,
                         new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date()),
@@ -199,7 +232,7 @@ public class ChatActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
-                                        FriendlyMessage friendlyMessage = new FriendlyMessage(
+                                        FriendlyMessage friendlyMessage = new FriendlyMessage(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                                                 null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                                 String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), uri.toString(),
                                                 new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date()), locality);

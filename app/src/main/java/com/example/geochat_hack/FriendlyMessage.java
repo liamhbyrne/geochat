@@ -24,18 +24,28 @@ public class FriendlyMessage {
     private String imageUrl;
     private String date;
     private String locality;
+    private String UID;
 
     FriendlyMessage() {
 
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl, String imageUrl, String date, String locality) {
+    public FriendlyMessage(String UID, String text, String name, String photoUrl, String imageUrl, String date, String locality) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
         this.locality = locality;
         this.date = date;
+        this.UID = UID;
+    }
+
+    public String setUId() {
+        return UID;
+    }
+
+    public String getUID() {
+        return UID;
     }
 
     public void setText(String text) {
