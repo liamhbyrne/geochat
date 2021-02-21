@@ -59,6 +59,10 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        DatabaseReference db=FirebaseDatabase.getInstance().getReference();
+        DatabaseReference users = db.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
         Intent extras = getIntent();
         this.locality = extras.getStringExtra("locality");
         getSupportActionBar().setTitle(locality);
@@ -150,9 +154,11 @@ public class ChatActivity extends AppCompatActivity {
                 if (mFirebaseAdapter.getItemCount() == 0) {
                     findViewById(R.id.progressBar).setVisibility(ProgressBar.INVISIBLE);
                     findViewById(R.id.lonely).setVisibility(TextView.VISIBLE);
+                    findViewById(R.id.lonelyIcon).setVisibility(TextView.VISIBLE);
                 }
                 if (mFirebaseAdapter.getItemCount() > 0 && findViewById(R.id.lonely).getVisibility() == TextView.VISIBLE) {
                     findViewById(R.id.lonely).setVisibility(TextView.INVISIBLE);
+                    findViewById(R.id.lonelyIcon).setVisibility(TextView.INVISIBLE);
                 }
             }
         };
@@ -214,7 +220,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 FriendlyMessage tempMessage = new FriendlyMessage(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        null, FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                        "", FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                         String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()), null,
                         new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'", Locale.ENGLISH).format(new Date()),
                         this.locality);

@@ -54,6 +54,17 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
+    <ImageView
+        android:id="@+id/lonelyIcon"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_alignBottom="@+id/messageRecyclerView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        android:visibility="invisible"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_add_comment_24" />
+
     <TextView
         android:id="@+id/lonely"
         android:layout_width="wrap_content"

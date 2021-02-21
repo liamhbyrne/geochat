@@ -9,6 +9,12 @@
 
     <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@color/design_default_color_error</item>
-        ...
+    </style>
+
+    <style name="PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/design_default_color_error</item>
+        <item name="android:divider">#444444</item>
+        <item name="android:dividerHeight">3dp</item>
+        <item name="android:background">#FFFFFF</item>
     </style>
 </resources>
