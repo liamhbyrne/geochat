@@ -116,6 +116,9 @@ public class ChatActivity extends AppCompatActivity {
                     findViewById(R.id.progressBar).setVisibility(ProgressBar.INVISIBLE);
                     findViewById(R.id.lonely).setVisibility(TextView.VISIBLE);
                 }
+                if (mFirebaseAdapter.getItemCount() > 0 && findViewById(R.id.lonely).getVisibility() == TextView.VISIBLE) {
+                    findViewById(R.id.lonely).setVisibility(TextView.INVISIBLE);
+                }
             }
         };
 
