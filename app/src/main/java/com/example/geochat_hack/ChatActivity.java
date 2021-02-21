@@ -87,6 +87,7 @@ public class ChatActivity extends AppCompatActivity {
         // Initialize Realtime Database and Locality query
         mDatabase = FirebaseDatabase.getInstance();
         Query messagesRef = mDatabase.getReference("messages").orderByChild("locality").equalTo(locality);
+        
 
 
         FirebaseRecyclerOptions<FriendlyMessage> options =

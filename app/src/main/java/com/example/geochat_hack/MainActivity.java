@@ -38,6 +38,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,50 +151,44 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 PopupMenu menu = new PopupMenu(getApplicationContext(), v);
-                menu.getMenu().add(Menu.NONE, 1, 1, getAddresses().get(0).getPremises());
-                menu.getMenu().add(Menu.NONE, 2, 2, getAddresses().get(0).getLocality());
-                menu.getMenu().add(Menu.NONE, 3, 3, getAddresses().get(0).getPostalCode().split(" ")[0]);
-                menu.getMenu().add(Menu.NONE, 4, 4, getAddresses().get(0).getSubAdminArea());
-                menu.getMenu().add(Menu.NONE, 5, 5, getAddresses().get(0).getAdminArea());
-
-
-                menu.show();
-
-                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        int i = item.getItemId();
-                        switch (i) {
-                            case 1:
-                                locality = getAddresses().get(0).getPremises();
-                                updateGPS();
-                                return true;
-
-                            case 2:
-                                locality = getAddresses().get(0).getLocality();
-                                updateGPS();
-                                return true;
-
-                            case 3:
-                                locality = getAddresses().get(0).getPostalCode().split(" ")[0];
-                                updateGPS();
-                                return true;
-
-                            case 4:
-                                locality = getAddresses().get(0).getSubAdminArea();
-                                updateGPS();
-                                return true;
-
-                            case 5:
-                                locality = getAddresses().get(0).getAdminArea();
-                                updateGPS();
-                                return true;
-                        }
-                        return false;
+                final List<String> items = new ArrayList<>();
+                Log.i("addresses", addresses.toString());
+                if (addresses.size() > 0) {
+                    if (getAddresses().get(0).getPremises() != null) {
+                        items.add(getAddresses().get(0).getPremises());
+                    }
+                    if (getAddresses().get(0).getLocality() != null) {
+                        items.add(getAddresses().get(0).getLocality());
+                    }
+                    if (getAddresses().get(0).getPostalCode() != null) {
+                        items.add(getAddresses().get(0).getPostalCode().split(" ")[0]);
+                    }
+                    if (getAddresses().get(0).getSubAdminArea() != null) {
+                        items.add(getAddresses().get(0).getSubAdminArea());
+                    }
+                    if (getAddresses().get(0).getAdminArea() != null) {
+                        items.add(getAddresses().get(0).getAdminArea());
+                    }
+                    for (String item : items) {
+                        menu.getMenu().add(item);
                     }
 
-                });
+                    menu.show();
+
+                    menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            locality = (String) item.getTitle();  // locality assigned to menu item select
+                            updateGPS();
+                            return true;
+                        }
+
+                    });
+                } else {
+                    Toast.makeText(MainActivity.this,"Unable to geocode your location",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -205,9 +201,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (locality != null) {
+                    toChat.putExtra("locality", getLocality());
+                    startActivity(toChat);
+                } else {
+                    Toast.makeText(MainActivity.this,"Unable to geocode your location",Toast.LENGTH_SHORT).show();
+                }
 
-                toChat.putExtra("locality", getLocality());
-                startActivity(toChat);
             }
         });
 
