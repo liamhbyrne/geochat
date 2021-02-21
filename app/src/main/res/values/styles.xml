@@ -6,4 +6,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorWhite</item>
     </style>
+
+    <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/design_default_color_error</item>
+        ...
+    </style>
 </resources>

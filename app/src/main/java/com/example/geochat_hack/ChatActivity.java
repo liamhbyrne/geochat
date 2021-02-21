@@ -1,10 +1,14 @@
 package com.example.geochat_hack;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -107,8 +112,8 @@ public class ChatActivity extends AppCompatActivity {
                 mvh.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        final String key = mFirebaseAdapter.getRef(((RecyclerView) findViewById(R.id.messageRecyclerView)).getChildLayoutPosition(v)).getKey();
 
+                        final String key = mFirebaseAdapter.getRef(((RecyclerView) findViewById(R.id.messageRecyclerView)).getChildLayoutPosition(v)).getKey();
                         Query dbUID = mDatabase.getReference("messages").child(key).child("uid");
                         dbUID.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -116,7 +121,7 @@ public class ChatActivity extends AppCompatActivity {
                                 if (snapshot.getValue() != null) {
                                     String savedUID = (String) snapshot.getValue();
                                     if (savedUID.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                                        mDatabase.getReference("messages").child(key).removeValue();
+                                        alertView(key).show();
                                     }
                                 }
                             }
@@ -126,7 +131,8 @@ public class ChatActivity extends AppCompatActivity {
                                 Log.e("deletion attempt", "Failed to get UID for message deletion");
                             }
                         });
-                        return false;
+
+                       return false;
                     }
                 });
                 return mvh;
@@ -162,8 +168,26 @@ public class ChatActivity extends AppCompatActivity {
                 new MyScrollToBottomObserver(((RecyclerView) findViewById(R.id.messageRecyclerView)), mFirebaseAdapter, mLinearLayoutManager));
     }
 
-    public void notifyDelete() {
+    public AlertDialog alertView(final String key) {
+        AlertDialog alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialog)).create();
+        alertDialog.setTitle("Permanently delete message?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "delete",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mDatabase.getReference("messages").child(key).removeValue();
+                    }
 
+                });
+        return alertDialog;
     }
 
     @Override
