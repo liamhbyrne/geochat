@@ -48,9 +48,19 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
+        android:indeterminateTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/lonely"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/messageRecyclerView"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lonely"
+        android:visibility="invisible" />
 </RelativeLayout>
 

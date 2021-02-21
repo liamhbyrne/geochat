@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -106,6 +107,15 @@ public class ChatActivity extends AppCompatActivity {
             protected void onBindViewHolder(MessageViewHolder vh, int position, FriendlyMessage message) {
                 findViewById(R.id.progressBar).setVisibility(ProgressBar.INVISIBLE);
                 vh.bindMessage(message);
+            }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                if (mFirebaseAdapter.getItemCount() == 0) {
+                    findViewById(R.id.progressBar).setVisibility(ProgressBar.INVISIBLE);
+                    findViewById(R.id.lonely).setVisibility(TextView.VISIBLE);
+                }
             }
         };
 
