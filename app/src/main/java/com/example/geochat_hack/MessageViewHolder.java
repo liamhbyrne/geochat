@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,11 +57,11 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindMessage(FriendlyMessage friendlyMessage) {
-        if (friendlyMessage.getUID() != null) {
-            this.UID = friendlyMessage.getUID();
+        if (friendlyMessage.getUid() != null) {
+            this.UID = friendlyMessage.getUid();
         }
         if (friendlyMessage.getName() != null && FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null) {
-            if (friendlyMessage.getName().equals(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())) {
+            if (friendlyMessage.getUid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                 //way of telling if its the same user (better than same display name)
                 messengerTextView.setTextColor(Color.parseColor("#7289DA"));
             }

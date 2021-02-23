@@ -24,7 +24,7 @@ public class FriendlyMessage {
     private String imageUrl;
     private String date;
     private String locality;
-    private String UID;
+    private String uid;
 
     FriendlyMessage() {
 
@@ -37,15 +37,15 @@ public class FriendlyMessage {
         this.imageUrl = imageUrl;
         this.locality = locality;
         this.date = date;
-        this.UID = UID;
+        this.uid = UID;
     }
 
     public String setUId() {
-        return UID;
+        return uid;
     }
 
-    public String getUID() {
-        return UID;
+    public String getUid() {
+        return uid;
     }
 
     public void setText(String text) {
